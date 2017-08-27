@@ -13,58 +13,73 @@ angular.module('tracxnprojectApp')
     $scope.data= [
   {
     "id": 1,
-    "title": "node1",
+    "title": "Electronics",
     "nodes": [
       {
         "id": 11,
-        "title": "node1.1",
+        "title": "Phones",
         "nodes": [
           {
             "id": 111,
-            "title": "node1.1.1",
+            "title": "Chargers",
             "nodes": []
           },
           {
             "id": 111,
-            "title": "node1.1.2",
+            "title": "Cases and Covers",
             "nodes": []
           }
         ]
       },
       {
         "id": 12,
-        "title": "node1.2",
+        "title": "Cameras",
+        "nodes": []
+      },
+      {
+        "id": 13,
+        "title": "Computers",
         "nodes": []
       }
     ]
   },
   {
     "id": 2,
-    "title": "node2",
+    "title": "Accessories",
     "nodrop": true,
     "nodes": [
       {
         "id": 21,
-        "title": "node2.1",
+        "title": "Strap",
         "nodes": []
       },
       {
         "id": 22,
-        "title": "node2.2",
+        "title": "Selfie Stick",
         "nodes": []
       }
     ]
   },
   {
     "id": 3,
-    "title": "node3",
+    "title": "Books",
     "nodes": [
       {
         "id": 31,
-        "title": "node3.1",
+        "title": "e-books",
         "nodes": []
       }
     ]
+  },
+  {
+    "id": 4,
+    "title": "Fashion",
+    "nodes": []
+  },
+  {
+    "id": 5,
+    "title": "Appliances",
+    "nodes": []
   }
 ];
 $scope.treeOptions = {
@@ -78,7 +93,8 @@ $scope.treeOptions = {
     },
   };
 $scope.storage = {title: "", change:""};
-$scope.latestcategory="category";
+$scope.child_storage={title:"", change:""};
+$scope.latestcategory="";
 /*$scope.newSubItem = function (scope) {
 	console.log(scope);
         var nodeData = scope.$modelValue;
@@ -91,14 +107,16 @@ $scope.latestcategory="category";
 
 
 $scope.newSubItem = function (scope) {
-	console.log(scope);
         var nodeData = $scope.storage.change.$modelValue;
         nodeData.nodes.push({
           id: nodeData.id * 10 + nodeData.nodes.length,
           title: scope,
           nodes: []
         });
+
+        $scope.storage = {title: "", change:""};
       };
+
 $scope.newCategory = function () {
 	
         
@@ -107,7 +125,9 @@ $scope.newCategory = function () {
           title: $scope.latestcategory,
           nodes: []
         });
+         $scope.latestcategory="";
       };
+
 $scope.childItem = function (scope) {
 	console.log(scope);
 	$scope.storage.change= scope;
@@ -122,6 +142,7 @@ $scope.editItem = function (scope) {
 
 $scope.saveItem = function (value) {
 	$scope.storage.change.node.title=value;
+	$scope.storage={title: "", change:""};
        
       };
 $scope.collapseAll = function () {
