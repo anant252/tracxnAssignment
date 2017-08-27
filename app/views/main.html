@@ -1,0 +1,130 @@
+
+
+
+
+<script type="text/ng-template" id="nodes_renderer.html">
+  <div ui-tree-handle ui-tree="treeOptions" class="tree-node tree-node-content" style="padding-top: 15px">
+    <a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="toggle(this)"><span
+        class="glyphicon"
+        ng-class="{
+          'glyphicon-chevron-right': collapsed,
+          'glyphicon-chevron-down': !collapsed
+        }"></span></a>
+    {{node.title}}
+    <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span
+        class="glyphicon glyphicon-remove"></span></a>
+    <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="childItem(this)" data-toggle="modal" data-target="#modal_child" style="margin-right: 8px;"><span
+        class="glyphicon glyphicon-plus"></span></a>
+    <!-- <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="editItem(this)" style="margin-right: 8px;"><span
+        class="glyphicon glyphicon-edit"></span></a> -->
+    <a class="pull-right btn btn-success btn-xs" data-nodrag ng-click="editItem(this)" data-toggle="modal" data-target="#modal" style="margin-right: 8px;"><span
+    class="glyphicon glyphicon-edit"></span></a>
+  </div>
+
+  
+  <div ui-tree="treeOptions">
+  <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+    <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
+    </li>
+  </ol>
+  </div>
+</script>
+
+<div class="row">
+  <div class="col-sm-12" style="padding-bottom:20px">
+    <h1>Tree Structure</h1>
+
+    <button ng-click="expandAll()">Expand all</button>
+    <button ng-click="collapseAll()">Collapse all</button>
+    <button data-toggle="modal" data-target="#modal_addCategory">Add Category</button>
+
+  </div>
+</div>
+
+<div class="row">
+  
+  <div class="col-sm-12">
+    <div ui-tree="" id="tree-root" class="angular-ui-tree">
+      <ol ui-tree-nodes="" ng-model="data" class="ng-pristine ng-untouched ng-valid angular-ui-tree-nodes">
+        <!-- ngRepeat: node in data --><!-- ngInclude: 'nodes_renderer.html' -->
+        <li ng-repeat="node in data" ui-tree-node="" ng-include="'nodes_renderer.html'" class="angular-ui-tree-node" collapsed="false" expand-on-hover="false">
+
+        </li><!-- end ngRepeat: node in data -->
+      </ol>
+    </div>
+  </div>
+
+
+  
+</div>
+
+<div id="modal" role="dialog" class="modal fade in">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          Edit Items
+        </div>
+
+        <div class="modal-body">
+        <div style="padding-left: 5px">Enter Input</div><br>
+            <label for="txtName" />
+            <input type="text" id="txtName" ng-model="storage.title"/>
+            
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+           <button class="btn btn-success" ng-click="saveItem(storage.title)" data-dismiss="modal">Save</button>
+
+        </div>
+      </div> 
+    </div>      
+  </div>
+
+
+  <div id="modal_addCategory" role="dialog" class="modal fade in">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          Create Category
+        </div>
+
+        <div class="modal-body">
+        <div style="padding-left: 5px">Enter Input Field</div><br>
+            <label for="txtName2" />
+            <input type="text" id="txtName2" ng-model="latestcategory"/>
+
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+           <button class="btn btn-success" ng-click=newCategory() data-dismiss="modal">Save</button>
+
+        </div>
+      </div> 
+    </div>      
+  </div>
+
+
+    <div id="modal_child" role="dialog" class="modal fade in">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          Create Child Category
+        </div>
+
+        <div class="modal-body">
+        <div style="padding-left: 5px">Enter Input Field</div><br>
+            <label for="txtName3" />
+            <input type="text" id="txtName3" ng-model="storage.title"/>
+
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+           <button class="btn btn-success" ng-click=newSubItem(storage.title) data-dismiss="modal">Save</button>
+
+        </div>
+      </div> 
+    </div>      
+  </div>
